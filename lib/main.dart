@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: whiteTheme,
-      home: const Home(), // <- Agora a tela inicial é "Home"
+      home: const Home(), 
     );
   }
 }
