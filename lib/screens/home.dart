@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tela/components/appbar_theme.dart';
 import 'package:tela/components/options_menu.dart';
+import 'package:tela/components/container_options.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,6 +12,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _appVersion = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      _appVersion = 'v ${packageInfo.version} Android';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +34,7 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 90),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,15 +62,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Center(
-                  child: Text(
-                    'Home',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                Center(child: ContainerOptions()),
               ],
             ),
           ),
@@ -66,7 +75,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            bottom: 12,
+            bottom: 30,
             left: 0,
             right: 0,
             child: Center(
@@ -92,6 +101,17 @@ class _HomeState extends State<Home> {
                     color: Colors.black,
                   ),
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 8,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                _appVersion,
+                style: const TextStyle(fontSize: 14, color: Colors.black54),
               ),
             ),
           ),
