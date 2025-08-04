@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'class_container.dart';
 
 class ContainerOptions extends StatefulWidget {
-  const ContainerOptions({super.key});
+  final Passageiro passageiro;
+
+  const ContainerOptions({super.key, required this.passageiro});
 
   @override
   State<ContainerOptions> createState() => _ContainerOptionsState();
@@ -12,6 +15,8 @@ class _ContainerOptionsState extends State<ContainerOptions> {
 
   @override
   Widget build(BuildContext context) {
+    final p = widget.passageiro;
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -33,21 +38,17 @@ class _ContainerOptionsState extends State<ContainerOptions> {
                 children: [
                   const Icon(Icons.event_seat, color: Colors.black54),
                   const SizedBox(width: 8),
-                  const Text(
-                    '01',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Text(
+                    p.numero,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(width: 12),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Gabriel Quaquio',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Casaroto',
-                        style: TextStyle(fontSize: 12, color: Colors.black54),
+                        p.nome,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -67,7 +68,6 @@ class _ContainerOptionsState extends State<ContainerOptions> {
               ),
             ],
           ),
-
           if (_isExpanded) ...[
             const SizedBox(height: 12),
             Row(

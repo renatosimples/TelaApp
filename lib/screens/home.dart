@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tela/components/appbar_theme.dart';
 import 'package:tela/components/options_menu.dart';
 import 'package:tela/components/container_options.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tela/components/class_container.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,15 +29,24 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
+    final passageiros = [
+      Passageiro(nome: 'Gabriel Quarquio', numero: '01'),
+      Passageiro(nome: 'Daniel Galdino', numero: '02'),
+      Passageiro(nome: 'Marcele Cipriano', numero: '03'),
+      Passageiro(nome: 'Alan Silva', numero: '04'),
+      Passageiro(nome: 'Marcos Paulo', numero: '05'),
+    ];
+
     return Scaffold(
       appBar: const CustomAppBar(userName: 'Gabriel'),
       body: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 90),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              padding: const EdgeInsets.only(bottom: 16),
               children: [
                 const SizedBox(height: 10),
                 const Padding(
@@ -62,7 +72,10 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Center(child: ContainerOptions()),
+                const SizedBox(height: 8),
+                ...passageiros.map(
+                  (p) => Center(child: ContainerOptions(passageiro: p)),
+                ),
               ],
             ),
           ),
@@ -70,35 +83,37 @@ class _HomeState extends State<Home> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: 70,
-              color: const Color.fromARGB(255, 227, 226, 226),
               width: double.infinity,
+              color: const Color.fromARGB(255, 227, 226, 226),
             ),
           ),
           Positioned(
             bottom: 30,
-            left: 0,
-            right: 0,
             child: Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.cyan,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 16,
+              child: Container(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.cyan,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    minimumSize: const Size(0, 0),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  minimumSize: const Size(0, 0),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                child: const Text(
-                  'Finalizar Embarque',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                  child: const Text(
+                    'Finalizar Embarque',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
